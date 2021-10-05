@@ -14,7 +14,7 @@ exports.addBalance = async (req, res, next) => {
         if (!updatedBalances) {
             throw new Error('Balance(s) could not be added / try again');
         }
-        res.json({ message: "Balance(s) was/were added succeful" })
+        res.json({ message: "Balance(s) was/were added successful" })
     } catch (error) {
         next(error);
     }

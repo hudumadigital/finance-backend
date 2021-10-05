@@ -60,7 +60,7 @@ mongoose
     });
   })
   .catch((err) => {
-    console.log("Error occured to DB");
+    console.log("Error occurred to DB");
     console.log(err);
     app.listen(PORT, null, (err) => {
       if (err) {
