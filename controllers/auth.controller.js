@@ -19,16 +19,17 @@ const validatorHelper = (password, hashedPassword, callback) => {
 
 exports.postRegisterCustomer = async (req, res, next) => {
     const { username, mobile, email, password } = req.body;
-    // return console.log(req.body);
-
+  
     try {
         const customer = await Customer.findOne({ email: email });
+        console.log(customer);
         if (customer) {
-            throw new Error('Customer already exist').statusCode = 500;
+            console.log('here');
+           throw new Error('Customer already exist');
         }
         const hashedPassword = await bcrypt.hash(password, 12);
         if (!hashedPassword) {
-            throw new Error('Customer already exist').statusCode = 500;
+            throw new Error('Customer already exist');
         }
         const newCustomer = new Customer({
             email: email,
