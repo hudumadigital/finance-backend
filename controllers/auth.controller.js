@@ -39,7 +39,7 @@ exports.postRegisterCustomer = async (req, res, next) => {
         const savedCustomer = await newCustomer.save();
         if (!savedCustomer) {
             const error = new Error(
-                "ERROR OCCURED | COULD NOT BE REGISTERED"
+                "ERROR OCCURRED | COULD NOT BE REGISTERED"
             );
             error.statusCode = 500;
             throw error;
