@@ -10,7 +10,6 @@ module.exports = async (req, res, next) => {
     throw err;
   }
   const token = authHeader.split(" ")[1];
-  console.log(token);
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, "secureFinance");

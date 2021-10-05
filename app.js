@@ -40,7 +40,7 @@ app.use((err, req, res, next) => {
   const status = err.statusCode || 500;
   const message = err._message ? err._message : err.message;
   const notSuccess = err.notSuccess ? err.notSuccess : false;
-  if (err != null) {
+  if (err) {
     res.status(status).json({ message: message, notSuccess: notSuccess });
   }
   // DISPLAY ERROR MESSAGE DURING DEVELOPMENT

@@ -2,18 +2,17 @@ const Customer = require('../models/customer.model');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const validatorHelper = (password, hashedPassword, callbak) => {
+const validatorHelper = (password, hashedPassword, callback) => {
     bcrypt
         .compare(password, hashedPassword)
         .then((doMatch) => {
             if (doMatch) {
-                return callbak(doMatch);
+                return callback(doMatch);
             }
-            return callbak(doMatch);
+            return callback(doMatch);
         })
         .catch((error) => {
             // console.log(error);
-            console.log(error);
             return callback(false);
         });
 };
@@ -65,11 +64,12 @@ exports.postLogin = async (req, res, next) => {
         }
         validatorHelper(password, customer.password, (doMatch) => {
             if (!doMatch) {
-                const error = new Error(
+                const err = new Error(
                     "Email or Password incorrect"
                 );
-                error.statusCode = 401;
-                throw error;
+                err.statusCode = 401;
+                // throw err;
+                return res.json({ message: 'Email or password incorrect', isSuccess: false })
             }
             const token = jwt.sign(
                 {

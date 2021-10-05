@@ -5,10 +5,10 @@ exports.addBalance = async (req, res, next) => {
     try {
         const customer = await Customer.findOne({ email: req.customerEmail });
         if (primaryBalance) {
-            customer.wallets.primaryAccount.balance += primaryBalance;
+            customer.wallets.primary_account.balance += primaryBalance;
         }
         if (agencyBalance) {
-            customer.wallets.agencyAccount.balance += agencyBalance;
+            customer.wallets.agency_account.balance += agencyBalance;
         }
         const updatedBalances = await customer.save();
         if (!updatedBalances) {
@@ -21,15 +21,16 @@ exports.addBalance = async (req, res, next) => {
 }
 exports.checkBalance = async (req, res, next) => {
     try {
-        const customer = await Customer.findOne({ email: customerEmail });
+        const customer = await Customer.findOne({ email: req.customerEmail });
+        // console.log(customer.wallets.agency_account.balance);
         if (!customer) {
             throw new Error("Balance(s) not available, try again");
         }
-        const totalBalance = customer.wallets.agancyAccount.balance +
-            customer.wallets.primaryAccount.balance;
+        const totalBalance = customer.wallets.agency_account.balance +
+            customer.wallets.primary_account.balance;
         res.json({
-            agencyBalance: customer.wallets.agancyAccount.balance,
-            primaryBalance: customer.wallets.primaryAccount.balance,
+            agencyBalance: customer.wallets.agency_account.balance,
+            primaryBalance: customer.wallets.primary_account.balance,
             totalBalance: totalBalance
         })
     } catch (error) {
