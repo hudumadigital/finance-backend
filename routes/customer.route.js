@@ -5,6 +5,12 @@ const isAuth = require('../middlewares/is-auth');
 
 router.get('/balance', isAuth, customerController.checkBalance);
 
-router.post('/add-balance', isAuth,customerController.addBalance);
+router.post('/add-balance', isAuth, customerController.addBalance);
+
+router.get('/search/:search_query', isAuth, customerController.searchForParticularWallet);
+
+router.post('/send-to-wallet', isAuth, customerController.sendMoneyToWallet)
+
+router.post('/bill', isAuth, customerController.payBill);
 
 module.exports = router

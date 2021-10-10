@@ -22,9 +22,7 @@ exports.postRegisterCustomer = async (req, res, next) => {
   
     try {
         const customer = await Customer.findOne({ email: email });
-        console.log(customer);
         if (customer) {
-            console.log('here');
            throw new Error('Customer already exist');
         }
         const hashedPassword = await bcrypt.hash(password, 12);
