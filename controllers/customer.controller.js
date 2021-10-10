@@ -7,7 +7,8 @@ const returnAccountWithMail = async (searchQuery) => {
 }
 
 exports.addBalance = async (req, res, next) => {
-    const { agencyAmount, primaryAmount } = req.body;
+    // console.log(req.body)
+    const { agencyAmount, primaryAmount } = req.body.amount;
     try {
         const customer = await Customer.findOne({ email: req.customerEmail });
         if (primaryAmount) {
@@ -117,6 +118,20 @@ exports.payBill = async (req, res, next) => {
             throw new Error('The Bill could not be finalized, try again');
         }
         res.json({ message: "The Bill was successful" })
+    } catch (error) {
+        next(error);
+    }
+}
+
+exports.getUtilities = async (req, res, next) => {
+    const mail = req.customer.email;
+    try {
+        const utilities = await Utility.find({ "customer.email": mail }).sort({ _id: -1 })
+            .limit(10);
+        if (!bills) {
+            throw new Error("BIlls coult not be retrieved")
+        }
+        res.json({ message: "Observe Your utilities summary", utilities: utilities });
     } catch (error) {
         next(error);
     }
