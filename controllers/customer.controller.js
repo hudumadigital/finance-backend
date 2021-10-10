@@ -82,7 +82,7 @@ exports.searchForParticularWallet = async (req, res, next) => {
     try {
         let regex = new RegExp(searchQuery, 'i');
         const accountMail = await returnAccountWithMail(regex);
-        if (!accountMail.email) {
+        if (!accountMail) {
             const error = new Error('Account with such email do not exist');
             throw error;
         }
