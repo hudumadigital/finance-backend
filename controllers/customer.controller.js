@@ -95,6 +95,7 @@ exports.payBill = async (req, res, next) => {
     const utility = req.body;
     const { amount } = req.body;
     const customer = req.customer;
+    // return console.log(utility);
     try {
         if (amount > req.customer.wallets.primary_account.balance || amount < 50) {
             throw new Error('The Bill could not be perfomed, not enough balance');
@@ -109,7 +110,7 @@ exports.payBill = async (req, res, next) => {
         const newUtility = new Utility({
             "customer.customerId": customer._id,
             "customer.email": customer.email,
-            utility
+            utility: utility
         })
         const savedUtility = await newUtility.save();
         if (!savedUtility) {

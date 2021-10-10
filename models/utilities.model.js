@@ -10,7 +10,9 @@ const utilitiesModel = new Schema({
         },
         email: { type: String }
     },
-    utilities: {}
+    utility: {
+        type: Object,
+    }
 
 });
 module.exports = mongoose.model('Utilities', utilitiesModel);
