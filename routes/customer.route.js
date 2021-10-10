@@ -11,6 +11,6 @@ router.get('/search/:search_query', isAuth, customerController.searchForParticul
 
 router.post('/send-to-wallet', isAuth, customerController.sendMoneyToWallet)
 
-router.post('/bill', isAuth, customerController.payBill);
+router.post('/bill', isAuth, customerController.payBill)
 
 module.exports = router
