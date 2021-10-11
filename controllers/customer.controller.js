@@ -81,10 +81,14 @@ exports.sendMoneyToWallet = async (req, res, next) => {
 exports.searchForParticularWallet = async (req, res, next) => {
     const searchQuery = req.params.search_query;
     try {
-        let regex = new RegExp(searchQuery, 'i');
-        const accountMail = await returnAccountWithMail(regex);
+        // let regex = new RegExp(searchQuery, 'i');
+        const accountMail = await returnAccountWithMail(searchQuery);
         if (!accountMail) {
             const error = new Error('Account with such email do not exist');
+            throw error;
+        }
+        if(accountMail == req.customer.email){
+            const error = new Error('Can not send money to self account');
             throw error;
         }
         res.json({ email: accountMail.email, message: "Account found, Please continue" })
