@@ -87,7 +87,7 @@ exports.searchForParticularWallet = async (req, res, next) => {
             const error = new Error('Account with such email do not exist');
             throw error;
         }
-        if(accountMail == req.customer.email){
+        if(accountMail.email == req.customer.email){
             const error = new Error('Can not send money to self account');
             throw error;
         }
