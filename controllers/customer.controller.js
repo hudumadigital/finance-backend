@@ -97,13 +97,13 @@ exports.searchForParticularWallet = async (req, res, next) => {
     }
 }
 exports.payBill = async (req, res, next) => {
-    const utility = req.body;
-    const { amount } = req.body;
+    const utility = req.body.utility;
+    const amount  = utility.amount;
     const customer = req.customer;
     // return console.log(utility);
     try {
         if (amount > req.customer.wallets.primary_account.balance || amount < 50) {
-            throw new Error('The Bill could not be perfomed, not enough balance');
+            throw new Error('The Bill could not be perfomed, not enough balance or bill < 50');
         }
         // if (customer.wallets.primary_account.balance > amount) {
         customer.wallets.primary_account.balance -= amount;
@@ -128,11 +128,11 @@ exports.payBill = async (req, res, next) => {
 }
 
 exports.getUtilities = async (req, res, next) => {
-    const mail = req.customer.email;
+    const email = req.customer.email;
     try {
-        const utilities = await Utility.find({ "customer.email": mail }).sort({ _id: -1 })
+        const utilities = await Utility.find({ "customer.email": email }).sort({ _id: -1 })
             .limit(10);
-        if (!bills) {
+        if (!utilities) {
             throw new Error("BIlls coult not be retrieved")
         }
         res.json({ message: "Observe Your utilities summary", utilities: utilities });
