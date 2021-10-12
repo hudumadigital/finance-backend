@@ -87,7 +87,7 @@ exports.searchForParticularWallet = async (req, res, next) => {
             const error = new Error('Account with such email do not exist');
             throw error;
         }
-        if(accountMail.email == req.customer.email){
+        if (accountMail.email == req.customer.email) {
             const error = new Error('Can not send money to self account');
             throw error;
         }
@@ -98,7 +98,7 @@ exports.searchForParticularWallet = async (req, res, next) => {
 }
 exports.payBill = async (req, res, next) => {
     const utility = req.body.utility;
-    const amount  = utility.amount;
+    const amount = utility.amount;
     const customer = req.customer;
     // return console.log(utility);
     try {
@@ -140,3 +140,4 @@ exports.getUtilities = async (req, res, next) => {
         next(error);
     }
 }
+exports.scanGo = async (req, res, next) => { }
